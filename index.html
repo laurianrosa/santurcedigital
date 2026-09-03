@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Santurce Digital</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css?v=20260901-modern-2" />
+</head>
+
+<body>
+  <header id="siteHeader">
+    <h1>Santurce Digital</h1>
+  </header>
+
+  <div id="app">
+    <aside id="sidebar">
+      <div class="project-info">
+        <button class="project-info-toggle" type="button" aria-expanded="false">
+          <span>Sobre el proyecto</span>
+          <span class="project-info-arrow">▾</span>
+        </button>
+
+        <div class="project-info-content" hidden>
+          <p>Santurce Digital es un plataforma interactiva que permite explorar la geografía e historia de Santurce mediante mapas, planos, fotografías históricas y otros materiales de archivo organizados en capas de información. Partiendo de preguntas —que de primera instancia podrían sonar simples— tales como: ¿Qué había antes en este edificio? ¿Por qué cambió? podemos comenzar a profundizar sobre los procesos económicos, políticos, y sociales que han atravesado Santurce.</p>
+
+          <p>La invitación con esta plataforma es a jugar con las capas de información que recopilamos: a darle zoom in y zoom out, y a fijarse en esos lugares que frecuentamos, las residencias con apellidos de familias poderosas que resuenan hoy día, los corredores comerciales, las rutas del tranvía y el ferrocarril, las zonas denominadas “humedales” donde parecería que no vivía gente.</p>
+
+          <p>Es fundamental tener presente que los mapas que aquí presentamos son representaciones subjetivas de la realidad. Por su naturaleza bidimensional, los mapas suponen distorsiones en cuanto a distancias, formas, tamaños y direcciones. Estas distorsiones se ven de manera aún más marcada cuando se trata de mapas y planos antiguos, que dependiendo su estado de conservación, podrían estar fragmentados o doblados, y que se crearon sin las tecnologías cartográficas con las que contamos hoy día. Más allá de las limitaciones geométricas de la cartografía, los mapas también suponen silencios y omisiones. Silencios y omisiones que exponen las parcialidades e intereses de sus autores. La invitación con esta plataforma es, entonces, a leer el mapa como se lee un texto: no para absorber lo que se observa, sino para cuestionar qué esconde, cómo se representan espacios, quienes no son representadxs, con qué propósito fue creado.</p>
+        </div>
+      </div>
+
+      <h2>Layers</h2>
+
+      <label>
+        <input type="checkbox" id="historicalMapsToggle" checked>
+        Mapas Históricos
+      </label>
+
+      <label>
+        <input type="checkbox" id="barriosToggle">
+        Barrios
+      </label>
+
+      <label>
+        <input type="checkbox" id="disappearedBarriosToggle">
+        Barrios Desaparecidos
+      </label>
+
+      <div id="disappearedBarriosSublayers" class="interest-classifications" hidden>
+        <label class="interest-classification">
+          <input type="checkbox" id="disappearedBarrioPointsToggle" checked>
+          Barrios Desaparecidos
+        </label>
+        <label class="interest-classification">
+          <input type="checkbox" id="aerialPhotoToggle" checked>
+          Foto aérea de 1952 del Portal de Datos Geográficos de Puerto Rico
+        </label>
+        <label class="interest-classification">
+          <input type="checkbox" id="regionalPlanToggle">
+          Plan Regional del Área Metropolitana de San Juan 1956
+        </label>
+      </div>
+
+      <label>
+        <input type="checkbox" id="tranviaToggle">
+        Tranvía
+      </label>
+
+      <label>
+        <input type="checkbox" id="historicBuildingsToggle">
+        Lugares de Interés
+      </label>
+
+      <div id="interestClassifications" class="interest-classifications" hidden></div>
+
+    </aside>
+
+    <main id="mapContainer">
+      <div id="map"></div>
+
+      <div id="timeline">
+        <div id="timelineHeader">
+          <strong>Historical Map Year:</strong>
+          <span id="yearLabel">1892</span>
+          <span id="yearLoading" role="status" aria-live="polite"></span>
+        </div>
+
+        <div id="timelineTrack"></div>
+      </div>
+
+      <aside id="disappearedBarrioPanel" class="disappeared-barrio-panel" hidden>
+        <button id="disappearedBarrioPanelClose" class="disappeared-barrio-panel-close" type="button" aria-label="Cerrar información">×</button>
+        <div id="disappearedBarrioPanelContent"></div>
+      </aside>
+    </main>
+  </div>
+
+  <section id="contentSections" class="content-sections">
+    <article class="info-card">
+      <h2>Storymaps</h2>
+      <p>coming soon</p>
+    </article>
+
+    <article class="info-card">
+      <h2>Lecturas sugeridas</h2>
+      <p>coming soon</p>
+    </article>
+  </section>
+
+  <footer id="siteFooter">
+
+    <p></p>
+
+    <div id="footerLogos">
+
+        <img
+            src="Photos/prac_logo.png"
+            alt="Rutgers–Puerto Rico Archival Collaboration">
+
+        <img
+            src="Photos/mellon_logo.jpg"
+            alt="The Andrew W. Mellon Foundation">
+
+    </div>
+
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js?v=20260901"></script>
+</body>
+</html>
