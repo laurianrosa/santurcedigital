@@ -1,4 +1,4 @@
-lugares
+lugares,,,
 points,X,Y,Class
 georgetti,18.447959,-66.071101,residencias 
 labra,18.450389,-66.074163,escuelas
@@ -12,3 +12,5 @@ sanatorio,18.440011,-66.048466,hospitales
 presbiteriano,18.455851,-66.065632,hospitales
 elchevere,18.446305,-66.068343,comercios
 asiloninos,18.448877,-66.07267,escuelas
+hospitalmunicipal,18.448538,-66.066387,hospitales
+teatroriviera,18.451815,-66.063893,cine
