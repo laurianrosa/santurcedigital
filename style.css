@@ -489,20 +489,32 @@ html, body {
 =========================== */
 
 .barrio-label {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  color: #222;
-  font-size: 11px;
-  font-weight: bold;
-  font-family: Arial, sans-serif;
+  padding: 5px 9px;
+  background: rgba(248,246,240,0.92);
+  border: 1px solid rgba(209,75,58,0.32);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(28,33,38,0.14);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.07em;
   text-align: center;
+  text-transform: uppercase;
   white-space: nowrap;
-  text-shadow:
-    -1px -1px 0 white,
-     1px -1px 0 white,
-    -1px  1px 0 white,
-     1px  1px 0 white;
+  backdrop-filter: blur(4px);
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease,
+    color 0.18s ease, font-size 0.18s ease, padding 0.18s ease;
+}
+
+.barrio-label.barrio-label-selected {
+  z-index: 1000;
+  padding: 7px 12px;
+  background: var(--paper);
+  border-color: var(--accent);
+  box-shadow: 0 5px 16px rgba(28,33,38,0.24);
+  color: var(--accent-dark);
+  font-size: 13px;
 }
 
 .barrio-label::before {
@@ -758,7 +770,7 @@ html, body {
 
 .interest-photo-frame {
   position: relative;
-  height: 240px;
+  height: 260px;
   margin-bottom: 12px;
   background: #dedad1;
   border-radius: 4px;

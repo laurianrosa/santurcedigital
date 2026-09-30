@@ -24,6 +24,9 @@ map.getPane("tranviaPane").style.zIndex = 700;
 map.createPane("tranviaStopsPane");
 map.getPane("tranviaStopsPane").style.zIndex = 750;
 
+map.createPane("tranviaTooltipPane");
+map.getPane("tranviaTooltipPane").style.zIndex = 900;
+
 map.createPane("interestPane");
 map.getPane("interestPane").style.zIndex = 800;
 
@@ -233,6 +236,7 @@ async function loadHistoricalMapCatalog() {
 // ===============================
 
 let barriosLayer = null;
+let selectedBarrioLayer = null;
 
 const projectInfoToggle = document.querySelector(".project-info-toggle");
 const projectInfoContent = document.querySelector(".project-info-content");
@@ -284,11 +288,20 @@ async function loadBarrios() {
           className: "barrio-label"
         });
 
-        // Optional popup when the polygon is clicked
-        layer.bindPopup(`<strong>${barrioName}</strong>`);
-
-        // Highlight polygon on mouse hover
+        // Enlarge the clicked barrio label instead of opening a popup
         layer.on({
+          click: function () {
+            if (selectedBarrioLayer === layer) {
+              layer.getTooltip()?.getElement()?.classList.remove("barrio-label-selected");
+              selectedBarrioLayer = null;
+              return;
+            }
+
+            selectedBarrioLayer?.getTooltip()?.getElement()?.classList.remove("barrio-label-selected");
+            selectedBarrioLayer = layer;
+            layer.getTooltip()?.getElement()?.classList.add("barrio-label-selected");
+          },
+
           mouseover: function () {
             layer.setStyle({
               weight: 3,
@@ -320,6 +333,8 @@ barriosToggle.addEventListener("change", function () {
   if (this.checked) {
     loadBarrios();
   } else if (barriosLayer) {
+    selectedBarrioLayer?.getTooltip()?.getElement()?.classList.remove("barrio-label-selected");
+    selectedBarrioLayer = null;
     map.removeLayer(barriosLayer);
   }
 });
@@ -612,7 +627,7 @@ async function loadTranvia() {
 
         layer.bindTooltip(
           stopNumber ? `Parada ${stopNumber}: ${stopName}` : stopName,
-          { direction: "top", className: "barrio-label" }
+          { pane: "tranviaTooltipPane", direction: "top", className: "barrio-label" }
         );
       }
     });
