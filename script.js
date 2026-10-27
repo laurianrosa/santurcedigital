@@ -806,7 +806,7 @@ function createInterestIcon(classification) {
     cementerio: "🪦",
     hospitales: "🏥",
     comercios: "🏪",
-    deporte: "⚽",
+    deporte: "🏇",
     mercado: "🛒"
   };
 
