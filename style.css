@@ -65,6 +65,7 @@ html, body {
 =========================== */
 
 #app {
+  position: relative;
   display: flex;
   height: calc(100% - 88px);
 }
@@ -95,6 +96,15 @@ html, body {
   margin-bottom: 22px;
   border-bottom: 1px solid var(--line);
   padding-bottom: 14px;
+}
+
+.storymaps-info {
+  margin-top: 18px;
+  margin-bottom: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 0;
+  padding-top: 14px;
+  padding-bottom: 0;
 }
 
 .project-info-toggle {
@@ -221,6 +231,124 @@ html, body {
   position: relative;
   flex: 1;
   height: 100%;
+  min-width: 0;
+}
+
+.tranvia-info-panel {
+  position: absolute;
+  z-index: 1200;
+  top: 0;
+  right: 0;
+  bottom: 140px;
+  width: min(460px, 100%);
+  box-sizing: border-box;
+  padding: 26px 22px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  background: var(--paper);
+  border-left: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.tranvia-info-panel[hidden] {
+  display: none;
+}
+
+.tranvia-info-panel h2 {
+  margin: 0 36px 14px 0;
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.tranvia-photo-frame {
+  position: relative;
+  height: 270px;
+  background: #dedad1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tranvia-photo-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tranvia-photo-button {
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  height: 42px;
+  transform: translateY(-50%);
+  border: 0;
+  background: rgba(32,37,43,0.82);
+  color: #fff;
+  cursor: pointer;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.tranvia-photo-button.previous {
+  left: 0;
+}
+
+.tranvia-photo-button.next {
+  right: 0;
+}
+
+.tranvia-photo-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 8px 0 20px;
+  color: var(--muted-ink);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.tranvia-photo-source {
+  font-size: 10px;
+}
+
+.tranvia-gallery-status {
+  margin: 0 0 16px;
+  color: var(--muted-ink);
+  font-size: 12px;
+}
+
+.tranvia-description p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.tranvia-references {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.tranvia-references h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.tranvia-references ol {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted-ink);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.tranvia-references li + li {
+  margin-top: 8px;
+}
+
+.tranvia-references a {
+  color: var(--accent-dark);
+  overflow-wrap: anywhere;
 }
 
 /* ===========================
@@ -344,6 +472,16 @@ html, body {
 }
 
 @media (max-width: 700px) {
+  .tranvia-info-panel {
+    position: absolute;
+    z-index: 1200;
+    top: 0;
+    bottom: 140px;
+    right: 0;
+    width: min(460px, 100%);
+    padding: 20px 16px;
+  }
+
   .disappeared-barrio-panel {
     top: auto;
     bottom: 12px;

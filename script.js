@@ -238,16 +238,18 @@ async function loadHistoricalMapCatalog() {
 let barriosLayer = null;
 let selectedBarrioLayer = null;
 
-const projectInfoToggle = document.querySelector(".project-info-toggle");
-const projectInfoContent = document.querySelector(".project-info-content");
+document.querySelectorAll(".project-info-toggle").forEach(toggle => {
+  const content = toggle.nextElementSibling;
+  if (!content) {
+    return;
+  }
 
-if (projectInfoToggle && projectInfoContent) {
-  projectInfoToggle.addEventListener("click", () => {
-    const isExpanded = projectInfoToggle.getAttribute("aria-expanded") === "true";
-    projectInfoToggle.setAttribute("aria-expanded", String(!isExpanded));
-    projectInfoContent.hidden = isExpanded;
+  toggle.addEventListener("click", () => {
+    const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isExpanded));
+    content.hidden = isExpanded;
   });
-}
+});
 
 const barriosToggle = document.getElementById("barriosToggle");
 
@@ -571,8 +573,101 @@ disappearedBarrioPanelClose.addEventListener("click", closeDisappearedBarrioPane
 // ===============================
 
 let tranviaLayer = null;
+let tranviaPhotosLoading = null;
 
 const tranviaToggle = document.getElementById("tranviaToggle");
+const tranviaInfoPanel = document.getElementById("tranviaInfoPanel");
+const tranviaPhotoGallery = document.getElementById("tranviaPhotoGallery");
+
+function renderTranviaPhotos(photos) {
+  tranviaPhotoGallery.replaceChildren();
+
+  if (!photos.length) {
+    const status = document.createElement("p");
+    status.className = "tranvia-gallery-status";
+    status.textContent = "No hay fotografías listadas en Photos/tranvia/tranvia_fotos.csv.";
+    tranviaPhotoGallery.append(status);
+    return;
+  }
+
+  let photoIndex = 0;
+  const frame = document.createElement("div");
+  frame.className = "tranvia-photo-frame";
+  const image = document.createElement("img");
+  frame.append(image);
+
+  const metadata = document.createElement("div");
+  metadata.className = "tranvia-photo-metadata";
+  const title = document.createElement("span");
+  title.className = "tranvia-photo-title";
+  const source = document.createElement("span");
+  source.className = "tranvia-photo-source";
+  metadata.append(title, source);
+
+  const renderPhoto = () => {
+    const photo = photos[photoIndex];
+    image.src = `Photos/tranvia/${encodeURIComponent(photo.filename)}`;
+    image.alt = photo.title || "Fotografía histórica del tranvía";
+    title.textContent = photo.title;
+    source.textContent = photo.source;
+  };
+
+  if (photos.length > 1) {
+    const previous = document.createElement("button");
+    previous.type = "button";
+    previous.className = "tranvia-photo-button previous";
+    previous.setAttribute("aria-label", "Foto anterior");
+    previous.textContent = "‹";
+    previous.addEventListener("click", () => {
+      photoIndex = (photoIndex - 1 + photos.length) % photos.length;
+      renderPhoto();
+    });
+
+    const next = document.createElement("button");
+    next.type = "button";
+    next.className = "tranvia-photo-button next";
+    next.setAttribute("aria-label", "Foto siguiente");
+    next.textContent = "›";
+    next.addEventListener("click", () => {
+      photoIndex = (photoIndex + 1) % photos.length;
+      renderPhoto();
+    });
+    frame.append(previous, next);
+  }
+
+  tranviaPhotoGallery.append(frame, metadata);
+  renderPhoto();
+}
+
+async function loadTranviaPhotos() {
+  if (!tranviaPhotosLoading) {
+    tranviaPhotosLoading = fetch("Photos/tranvia/tranvia_fotos.csv")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Could not load Photos/tranvia/tranvia_fotos.csv");
+        }
+        return response.arrayBuffer();
+      })
+      .then(bytes => parseCSV(decodeUTF8(bytes)))
+      .then(rows => rows.map(row => ({
+        filename: row.file || row.filename || "",
+        title: row.titulo || row.title || "",
+        source: row.fuente || ""
+      })).filter(photo => photo.filename))
+      .catch(error => {
+        tranviaPhotosLoading = null;
+        console.error("Tranvía photos failed to load:", error);
+        const status = document.createElement("p");
+        status.className = "tranvia-gallery-status";
+        status.textContent = "No se pudo cargar Photos/tranvia/tranvia_fotos.csv.";
+        tranviaPhotoGallery.replaceChildren(status);
+        return [];
+      });
+  }
+
+  const photos = await tranviaPhotosLoading;
+  renderTranviaPhotos(photos);
+}
 
 async function loadTranvia() {
   if (tranviaLayer) {
@@ -643,11 +738,21 @@ async function loadTranvia() {
 }
 
 tranviaToggle.addEventListener("change", function () {
+  tranviaInfoPanel.hidden = !this.checked;
+
   if (this.checked) {
+    loadTranviaPhotos();
     loadTranvia();
   } else if (tranviaLayer) {
     map.removeLayer(tranviaLayer);
   }
+
+  requestAnimationFrame(() => map.invalidateSize());
+});
+
+document.getElementById("tranviaInfoPanelClose").addEventListener("click", () => {
+  tranviaToggle.checked = false;
+  tranviaToggle.dispatchEvent(new Event("change"));
 });
 
 // ===============================
@@ -700,7 +805,9 @@ function createInterestIcon(classification) {
     cine: "🎬",
     cementerio: "🪦",
     hospitales: "🏥",
-    comercios: "🏪"
+    comercios: "🏪",
+    deporte: "⚽",
+    mercado: "🛒"
   };
 
   return L.divIcon({

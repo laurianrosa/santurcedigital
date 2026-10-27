@@ -5,7 +5,7 @@
   <title>Santurce Digital</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css?v=20260930-6" />
+  <link rel="stylesheet" href="style.css?v=20261027-3" />
 </head>
 
 <body>
@@ -83,10 +83,41 @@
 
       <div id="interestClassifications" class="interest-classifications" hidden></div>
 
+      <div class="project-info storymaps-info">
+        <button class="project-info-toggle" type="button" aria-expanded="false">
+          <span>Storymaps</span>
+          <span class="project-info-arrow">▾</span>
+        </button>
+        <div class="project-info-content" hidden>
+          <p>Próximamente</p>
+        </div>
+      </div>
+
     </aside>
 
     <main id="mapContainer">
       <div id="map"></div>
+
+      <aside id="tranviaInfoPanel" class="tranvia-info-panel" aria-labelledby="tranviaInfoTitle" hidden>
+        <button id="tranviaInfoPanelClose" class="disappeared-barrio-panel-close" type="button" aria-label="Cerrar información">×</button>
+        <h2 id="tranviaInfoTitle">Tranvía de San Juan</h2>
+        <div id="tranviaPhotoGallery" class="tranvia-photo-gallery" aria-live="polite">
+          <p class="tranvia-gallery-status">Cargando fotografías...</p>
+        </div>
+        <div class="tranvia-description">
+          <p>En 1878 el gobierno español le otorgó una concesión al esclavista Pablo Ubarri y Capetillo para construir el Tranvía de la Capital a Río Piedras. Inaugurado en 1880, este primer sistema ferroviario urbano abarcaba aproximadamente 7 millas a lo largo de la antigua Carretera Central (hoy día la Avenida Juan Ponce de León) impulsado por pequeñas locomotoras de vapor. Para 1892, el sistema consolidó su infraestructura con la apertura de su terminal principal cerca de la Puerta de España en el casco urbano del Viejo San Juan.</p>
+          <p>Tras la invasión estadounidense de 1898, la línea fue adquirida por inversionistas y reorganizada bajo la San Juan Light &amp; Transit Co., empresa que transformó la vía al ancho estándar e instaló un tendido eléctrico aéreo. El 1 de enero de 1901 se inauguró formalmente el tranvía eléctrico. El mismo fue administrado posteriormente por la Porto Rico Railway, Light &amp; Power Co. Las paradas del trayecto se numeraron de la Parada 1 en Viejo San Juan a la Parada 40 en Río Piedras. Con el tiempo, el sistema se expandió mediante ramales hacia sectores como el Parque Borinquen (1903) y el Condado (1911).</p>
+          <p>En septiembre de 1928, los daños provocados por el huracán San Felipe obligaron a abandonar permanentemente el tramo a Río Piedras y a reubicar los talleres en el Parque Borinquen, dejando el servicio limitado a Viejo San Juan, Santurce y Condado. El sistema fue nacionalizado en 1942 y pasó a ser una filial de la Autoridad de Fuentes Fluviales. A medida que la industria del automóvil floreció en Estados Unidos durante las décadas de 1910 y 1920, Puerto Rico se convirtió en un mercado directo para la importación de vehículos y autobuses estadounidenses. La popularización de las guaguas y automóviles aceleró el fin del sistema. El último viaje del tranvía se completó en 1946.</p>
+        </div>
+        <section class="tranvia-references" aria-label="Referencias">
+          <h3>Referencias</h3>
+          <ol>
+            <li>Periódico El Adoquín. (2020, 17 de agosto). <a href="https://eladoquintimes.com/2020/08/17/el-tranvia-de-ubarri/" target="_blank" rel="noopener noreferrer">El Tranvía de Ubarri</a>. Periódico El Adoquín.</li>
+            <li>Ruiz, H. (2026, 12 de marzo). <a href="https://sites.google.com/view/redescubriendoapuertorico/ferrocarriles/tranvia-san-juan-rio-piedras" target="_blank" rel="noopener noreferrer">El tranvía de San Juan a Río Piedras</a>. Redescubriendo a Puerto Rico.</li>
+            <li>Morrison, A. (2008, 2 de noviembre). <a href="http://www.tramz.com/pr/sjs.html" target="_blank" rel="noopener noreferrer">Los tranvías de San Juan, Puerto Rico</a> (M. Madariaga, trad.). Electric Transport in Latin America.</li>
+          </ol>
+        </section>
+      </aside>
 
       <div id="timeline">
         <div id="timelineHeader">
@@ -106,6 +137,6 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="script.js?v=20261026-1"></script>
+  <script src="script.js?v=20261027-7"></script>
 </body>
 </html>
